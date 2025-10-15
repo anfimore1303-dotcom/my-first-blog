@@ -1,33 +1,54 @@
-{% extends 'blog/base.html' %}
-{% block content %}
+{% load static %}
+<html>
+    <head>
+        <title>mblwonok</title>
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+        <link href="https://fonts.googleapis.com/css?family=Lobster&subset=latin,cyrillic" rel="stylesheet" type="text/css">
+    </head>
+    <body>
 
-  <!-- ТВОЙ СТАТИЧЕСКИЙ ТЕКСТ -->
-  <article class="post">
-    <h1><a href="/">Приветес, креветес!</a></h1>
-    <div class="date">published: 13.10.2025, 12:14</div>
-    <p>
-      Как-то раз на скамейке у дома престарелых сидели три старухи...
-        Когда мимо проходил дедок, одна из них сказала ему:
-        - Спорим, что мы можем точно угадать, сколько тебе лет?
-        - Да никогда в жизни не угадаете, старые курицы! - ответил дед.
-        - Запросто, - сказала одна из бабулек - ты только опусти брюки и подштанники, и мы сможем определить твой возраст.
-        Дед поначалу засмущался, но желание выиграть спор взяло верх, и он опустил штаны. Старухи попросили его несколько раз повернуться и несколько раз подпрыгнуть. Затем они угомонились и сказали:
-        - Тебе 87 лет.
-        - Ядрена вошь! Как вы угадали?
-        Старухи рассмеялись и ответили:
-        - А мы вчера у тебя на дне рождения были
+    <div class="page-header">
+        {% if user.is_authenticated %}
+    <h1><a href="{% url 'post_new' %}" class="top-menu"><span class="glyphicon glyphicon-plus"></span></a>
+        {% endif %}
+</div>
 
-    </p>
-  </article>
+        <div>
+            <h1><a href="/">Приветес, креветес!</a></h1>
+       <div class="content container">
+    <div class="row">
+        <div class="col-md-8">
+            {% for post in posts %}
+                <div class="post">
+                    <div class="date">
+                        <p>Опубликовано: {{ post.published_date }}</p>
+                    </div>
+                    <h1><a href="">{{ post.title }}</a></h1>
+                    <p>{{ post.text|linebreaksbr }}</p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+            <p>published: 13.10.2025, 12:14</p>
+            <h2><a href="">My first post</a></h2>
+            <p>Как-то раз на скамейке у дома престарелых сидели три старухи.Когда мимо проходил дедок, одна из них сказала ему:
+                - Спорим, что мы можем точно угадать, сколько тебе лет?
+                - Да никогда в жизни не угадаете, старые курицы! - ответил дед.
+                - Запросто, - сказала одна из бабулек.- Ты только опусти брюки и подштанники, и мы сможем определить твой возраст.
+Дед поначалу засмущался, но желание выиграть спор взяло верх, и он опустил штаны. Старухи попросили его несколько раз повернуться и
+несколько раз подпрыгнуть. Затем они угомонились и сказали:
+- Тебе 87 лет.
+- Ядрена вошь! Как вы угадали?
+Старухи рассмеялись и ответили:
+- А мы вчера у тебя на дне рождения были</p>
+        </div>
 
-  {% for post in posts %}
-    <article class="post">
-      <div class="date">
-        Опубликовано: {{ post.published_date|date:"d.m.Y, H:i" }}
-      </div>
-      <h1><a href="">{{ post.title }}</a></h1>
-      <p>{{ post.text|linebreaksbr }}</p>
-    </article>
-  {% endfor %}
-
-{% endblock %}
+        <div>
+            <p>published: 14.06.2014, 12:14</p>
+            <h2><a href="">My second post</a></h2>
+            <p>стоят две зубочистки в лесу, ну стоят, что-то пиздят там о своем пиздят, хуяк мимо них еж пролетает, блять, одна зубочистка другой говорит нихуя себе, а я не знал что здесь автобусы ходят..</p>
+        </div>
+    </body>
+</html>
